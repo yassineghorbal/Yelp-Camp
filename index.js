@@ -8,15 +8,12 @@ const catchAsync = require('./helpers/catchAsync')
 const ExpressError = require('./helpers/ExpressError')
 const { campgroundSchema } = require('./schemas')
 const app = express()
+const connectDB = require('./config/db')
+const colors = require('colors')
+const dotenv = require('dotenv').config()
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
-        console.log("MONGO CONNECTION OPEN!!!")
-    })
-    .catch(err => {
-        console.log("OH NO MONGO CONNECTION ERROR!!!!")
-        console.log(err)
-    })
+
+connectDB()
 
 app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
@@ -97,5 +94,5 @@ app.use((err, req, res, next) => {
 
 
 app.listen('3000', () => {
-    console.log('3000');
+    console.log('server running on port 3000');
 })
