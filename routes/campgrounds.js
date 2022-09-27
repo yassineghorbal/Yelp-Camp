@@ -3,6 +3,7 @@ const router = express.Router()
 const catchAsync = require('../helpers/catchAsync')
 const ExpressError = require('../helpers/ExpressError')
 const Campground = require('../models/campground')
+const { db } = require('../models/review')
 const { campgroundSchema } = require('../schemas')
 
 const validateCampground = (req, res, next) => {
@@ -37,12 +38,20 @@ router.get('/', catchAsync(async (req, res) => {
 //show single campground
 router.get('/:id', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id).populate('reviews')
+    if (!campground) {
+        req.flash('error', 'Cannot find that campground!')
+        return res.redirect('/campgrounds')
+    }
     res.render('campgrounds/show', { campground })
 }))
 
 //show edit campground form
 router.get('/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id)
+    if (!campground) {
+        req.flash('error', 'Cannot find that campground!')
+        return res.redirect('/campgrounds')
+    }
     res.render('campgrounds/edit', { campground })
 }))
 
