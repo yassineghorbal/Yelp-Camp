@@ -40,7 +40,7 @@ router.get('/:id', catchAsync(async (req, res) => {
 }))
 
 //show edit campground form
-router.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id)
     res.render('campgrounds/edit', { campground })
 }))
