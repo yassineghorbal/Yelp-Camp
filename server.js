@@ -9,6 +9,10 @@ const colors = require('colors')
 const dotenv = require('dotenv').config()
 const session = require('express-session')
 const flash = require('connect-flash')
+const passport = require('passport')
+const localStrategy = require('passport-local')
+const User = require('./models/user')
+
 
 const campgrounds = require('./routes/campgrounds')
 const reviews = require('./routes/reviews')
@@ -36,14 +40,28 @@ const sessionConfig = {
 
     }
 }
+
 app.use(session(sessionConfig))
 app.use(flash())
+
+app.use(passport.initialize())
+app.use(passport.session())
+passport.use(new localStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 // *****flash middleware*****
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     next()
+})
+
+app.get('/fakeuser', async (req, res) => {
+    const user = new User({ email: 'test@test.com', username: 'test' })
+    const newUser = await User.register(user, '1234test')
+    res.send(newUser)
 })
 
 app.use("/campgrounds", campgrounds)
