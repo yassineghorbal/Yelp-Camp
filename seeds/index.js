@@ -21,6 +21,7 @@ const seedDB = async () => {
             author: '63358911738de89ce77c45cc',
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
             images: [
                 {
                     url: 'https://res.cloudinary.com/dtwuh88nw/image/upload/v1664665215/YelpCamp/lnlszjkmfowjc6mrt7tf.jpg',
