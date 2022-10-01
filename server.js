@@ -1,3 +1,6 @@
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
 const express = require('express')
 const path = require('path')
 const methodOverride = require('method-override')
@@ -6,7 +9,6 @@ const ExpressError = require('./helpers/ExpressError')
 const app = express()
 const connectDB = require('./config/db')
 const colors = require('colors')
-const dotenv = require('dotenv').config()
 const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('passport')
