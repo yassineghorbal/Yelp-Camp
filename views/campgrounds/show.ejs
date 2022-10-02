@@ -1,8 +1,10 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/stylesheets/stars.css" />
 
+
 <div class="row mb-5">
   <div class="col-6">
+    <div id='map' style='width: 400px; height: 300px;'></div>
     <div id="campgoundCarousel" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-inner">
       <% campground.images.forEach((img, i) => { %>
@@ -45,13 +47,13 @@
           class="d-inline"
           action="/campgrounds/<%=campground._id%>?_method=DELETE"
           method="POST"
-        >
+          >
           <button class="btn btn-danger">Delete</button>
         </form>
       </div>
       <%}%>
       <div class="card-footer text-muted text-center">2 days ago</div>
-    </div>
+      </div>
   </div>
   <div class="col-6">
     <% if(currentUser){ %>
@@ -110,3 +112,10 @@
     <% } %>
   </div>
 </div>
+
+<!-- mapbox -->
+<script>
+  const mbxToken = '<%-process.env.MAPBOX_TOKEN%>'
+  const campground = <%-JSON.stringify(campground)%>
+</script>
+<script src="/js/showPageMap.js"></script>
