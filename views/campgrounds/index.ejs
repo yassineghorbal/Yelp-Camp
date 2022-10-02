@@ -5,11 +5,19 @@
 <div class="card mb-3 shadow-sm">
   <div class="row">
     <div class="col-md-4">
+      <% if(campground.images.length){ %>
       <img
         class="img-fluid"
         src="<%= campground.images[0].url %>"
         alt=" campground image"
       />
+      <%} else {%>
+      <img
+        class="img-fluid"
+        src="https://www.switchbacktravel.com/sites/default/files/articles%20/Camping%20tent%20%28REI%20Co-op%20Base%20Camp%206%20m%29.jpg"
+        alt=""
+      />
+      <%}%>
     </div>
     <div class="col-md-8">
       <div class="card-body">
