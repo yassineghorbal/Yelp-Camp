@@ -15,3 +15,6 @@ const marker = new mapboxgl.Marker()
             )
     )
     .addTo(map);
+
+// map controls
+map.addControl(new mapboxgl.NavigationControl())
