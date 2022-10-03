@@ -33,7 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 
 // *****Session*****
+
 const sessionConfig = {
+    name: 'session',
     secret: 'xyzbca',
     resave: false,
     saveUninitialized: true,
@@ -41,12 +43,16 @@ const sessionConfig = {
         httpOnly: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge: 1000 * 60 * 60 * 24 * 7
-
     }
+}
+
+if (process.env.NODE_ENV === 'production') {
+    sessionConfig.cookie.secure = true
 }
 
 app.use(session(sessionConfig))
 app.use(flash())
+
 
 app.use(passport.initialize())
 app.use(passport.session())
