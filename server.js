@@ -58,10 +58,6 @@ sessionConfig.store.on('error', function (e) {
     console.log("sessin store error: ", e.red.underline)
 })
 
-if (process.env.NODE_ENV === 'production') {
-    sessionConfig.cookie.secure = true
-}
-
 app.use(session(sessionConfig))
 app.use(flash())
 
