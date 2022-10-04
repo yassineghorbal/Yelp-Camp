@@ -44,7 +44,7 @@ const sessionConfig = {
         touchAfter: 24 * 3600
     }),
     name: 'session',
-    secret: 'xyzbca',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
