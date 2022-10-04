@@ -15,6 +15,7 @@ const passport = require('passport')
 const localStrategy = require('passport-local')
 const User = require('./models/user')
 const mongoSanitize = require('express-mongo-sanitize')
+const MongoStore = require('connect-mongo')
 
 
 const campgroundRoutes = require('./routes/campgrounds')
@@ -35,6 +36,11 @@ app.use(express.static(path.join(__dirname, 'public')))
 // *****Session*****
 
 const sessionConfig = {
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URI,
+        secret: 'xyzbca',
+        touchAfter: 24 * 3600
+    }),
     name: 'session',
     secret: 'xyzbca',
     resave: false,
@@ -45,6 +51,10 @@ const sessionConfig = {
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
+
+sessionConfig.store.on('error', function (e) {
+    console.log("sessin store error: ", e.red.underline)
+})
 
 if (process.env.NODE_ENV === 'production') {
     sessionConfig.cookie.secure = true
