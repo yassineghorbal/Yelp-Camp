@@ -1,11 +1,12 @@
 const Campground = require('../models/campground')
 const { cloudinary } = require('../cloudinary')
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding')
+const { CloudinaryStorage } = require('multer-storage-cloudinary')
 const mbxToken = process.env.MAPBOX_TOKEN
 const geoCoder = mbxGeocoding({ accessToken: mbxToken })
 
 module.exports.index = async (req, res) => {
-    const campgrounds = await Campground.find({})
+    const campgrounds = await Campground.find({}).sort({'createdAt': -1})
     res.render('campgrounds/index', { campgrounds })
 }
 

@@ -40,7 +40,7 @@ const CampgroundSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Review'
     }]
-}, opts)
+}, { timestamps: true }, opts)
 
 CampgroundSchema.virtual('properties.popUpMarkup').get(function () {
     return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>`
